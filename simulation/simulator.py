@@ -36,7 +36,7 @@ def simulate(schedule, dag, config):
 
     for task in task_list:
         proc = assign[task]
-        runtime = dag.nodes[task].get("runtime", 0.0)
+        runtime = dag.nodes[task]["runtime"][proc]
         # determine parent ready time
         parent_ready = 0.0
         for par in dag.predecessors(task):

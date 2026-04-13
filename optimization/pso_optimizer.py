@@ -24,7 +24,7 @@ def decode_position(pos, dag, config, task_list):
     task_times = {}
     for i, task in enumerate(task_list):
         proc = chrom[i]
-        runtime = dag.nodes[task]["runtime"]
+        runtime = dag.nodes[task]["runtime"][proc]
         parent_ready = 0.0
         for par in dag.predecessors(task):
             p_proc, _, p_end = task_times[par]

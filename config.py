@@ -1,55 +1,69 @@
 """
 config.py - Global configuration for HEFT + CSA + GA + PSO + CSO project.
-Change parameters here.
 """
 
-# Dataset
+# ================= DATASET =================
 DATASET_FILENAME = "data/montage-chameleon-2mass-015d-001.json"
 
-# Processors
+# ================= PROCESSOR MODEL =================
 NUM_PROCESSORS = 4
 
-# Energy model: energy units consumed per second for each processor (length NUM_PROCESSORS)
-PROCESSOR_ENERGY = [50.0, 50.0, 50.0, 50.0]
+# VERY STRONG heterogeneity (important for meaningful results)
+PROCESSOR_SPEED = [1.0, 3.0, 6.0, 0.5]
 
-# Cost model: cost per CPU-second (currency arbitrary)
-COST_PER_CPU_SECOND = 0.01
+# energy consumption per second (fast processors consume more)
+PROCESSOR_ENERGY = [10.0, 80.0, 200.0, 5.0]
 
-# File sizes (MB) for files referenced in DAG nodes (optionally fill)
+# processor cost model
+PROCESSOR_COST = [0.5, 1.5, 3.0, 0.2]
+
+# ================= NETWORK MODEL =================
+# Strong bandwidth heterogeneity (important for Montage)
+BANDWIDTH = [
+    [0, 5, 1, 0.5],
+    [5, 0, 2, 0.3],
+    [1, 2, 0, 4],
+    [0.5, 0.3, 4, 0]
+]
+
+# ================= DATA MODEL =================
 FILE_SIZES = {}
-FILE_SIZE_DEFAULT = 1.0  # MB when file not in FILE_SIZES
+FILE_SIZE_DEFAULT = 100   # MB (increase → communication impact ↑)
 
-# Fitness weights (scale to balance magnitudes)
+# ================= COST MODEL =================
+COST_PER_CPU_SECOND = 0.05
+
+# ================= FITNESS WEIGHTS =================
+# Make energy matter more (important for Pareto later)
 MAKESPAN_WEIGHT = 1.0
-ENERGY_WEIGHT = 0.01
-STORAGE_WEIGHT = 0.001
+ENERGY_WEIGHT = 0.5
+STORAGE_WEIGHT = 0.2
 
-# Output folder
+# ================= OUTPUT =================
 LOG_FOLDER = "logs/"
 
-# ------------------ CSA parameters ------------------
+# ================= CSA PARAMETERS =================
 CSA_POPULATION_SIZE = 30
 CSA_MAX_ITERATIONS = 30
 CSA_MUTATION_RATE = 0.1
 CSA_CLONE_FACTOR = 3
 CSA_ELITE_COUNT = 5
-CSA_REPLACEMENT_RATE = 0.3
 
-# ------------------ GA parameters -------------------
+# ================= GA PARAMETERS =================
 GA_POPULATION_SIZE = 40
 GA_MAX_GENERATIONS = 40
 GA_CROSSOVER_RATE = 0.9
 GA_MUTATION_RATE = 0.1
 GA_ELITE_COUNT = 4
 
-# ------------------ PSO parameters ------------------
+# ================= PSO PARAMETERS =================
 PSO_PARTICLE_COUNT = 30
 PSO_MAX_ITERATIONS = 40
 PSO_INERTIA = 0.7
 PSO_COGNITIVE = 1.4
 PSO_SOCIAL = 1.4
 
-# ------------------ CSO parameters ------------------
+# ================= CSO PARAMETERS =================
 CSO_POPULATION = 30
 CSO_MAX_ITER = 40
 CSO_MIXING_RATIO = 0.2
@@ -58,8 +72,8 @@ CSO_SEEKING_CHANGE_RATE = 0.2
 CSO_SEEKING_SD = 1.0
 CSO_TRACING_C = 1.0
 
-# Random seed for reproducibility (None for random)
+# ================= RANDOM SEED =================
 RANDOM_SEED = 42
 
-# Debug
+# ================= DEBUG =================
 DEBUG = False

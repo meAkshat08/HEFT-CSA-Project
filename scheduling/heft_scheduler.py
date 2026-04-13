@@ -22,7 +22,7 @@ def compute_upward_rank(dag):
     def _rank(n):
         if n in ranku:
             return ranku[n]
-        runtime = dag.nodes[n].get("runtime", 0.0)
+        runtime = sum(dag.nodes[n].get("runtime", [0.0])) / len(dag.nodes[n].get("runtime", [1]))
         children = list(dag.successors(n))
         if not children:
             rank = runtime
@@ -47,7 +47,7 @@ def earliest_finish_time(task_id, dag, processor_schedules, proc_id):
     processor_schedules: {proc_id: [(start,end), ...]}
     Returns (start, end)
     """
-    runtime = dag.nodes[task_id].get("runtime", 0.0)
+    runtime = dag.nodes[task_id]["runtime"][proc_id]
 
     # parents completion times (include communication = 1 if parent on other processor)
     parent_finish = 0.0

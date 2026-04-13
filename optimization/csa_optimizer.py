@@ -32,7 +32,7 @@ def decode_chrom(chrom, dag, config, task_list):
 
     for i, task in enumerate(task_list):
         proc = chrom[i]
-        runtime = dag.nodes[task]["runtime"]
+        runtime = dag.nodes[task]["runtime"][proc]
         # parents ready time
         parent_ready = 0.0
         for par in dag.predecessors(task):

@@ -40,28 +40,28 @@ def run_pipeline():
 
         # CSA
         print("[MAIN] Running CSA (seeded with HEFT)...")
-        csa_sched, csa_score = csa_optimize(dag, config, initial_schedule=heft_res)
+        csa_sched, csa_score = csa_optimize(dag, config)
         csa_sim = simulate(csa_sched, dag, config)
         results["csa"] = {"schedule": csa_sched, "sim": csa_sim, "fitness": csa_score}
         print(f"[MAIN] CSA makespan={csa_sim['actual_makespan']}, energy={csa_sim['total_energy']}, storage={csa_sim['total_storage']}")
 
         # GA
         print("[MAIN] Running GA (seeded with HEFT)...")
-        ga_sched, ga_score = ga_optimize(dag, config, initial_schedule=heft_res)
+        ga_sched, ga_score = ga_optimize(dag, config)
         ga_sim = simulate(ga_sched, dag, config)
         results["ga"] = {"schedule": ga_sched, "sim": ga_sim, "fitness": ga_score}
         print(f"[MAIN] GA makespan={ga_sim['actual_makespan']}, energy={ga_sim['total_energy']}, storage={ga_sim['total_storage']}")
 
         # PSO
         print("[MAIN] Running PSO (seeded with HEFT)...")
-        pso_sched, pso_score = pso_optimize(dag, config, initial_schedule=heft_res)
+        pso_sched, pso_score = pso_optimize(dag, config)
         pso_sim = simulate(pso_sched, dag, config)
         results["pso"] = {"schedule": pso_sched, "sim": pso_sim, "fitness": pso_score}
         print(f"[MAIN] PSO makespan={pso_sim['actual_makespan']}, energy={pso_sim['total_energy']}, storage={pso_sim['total_storage']}")
 
         # CSO
         print("[MAIN] Running CSO (seeded with HEFT)...")
-        cso_sched, cso_score = cso_optimize(dag, config, initial_schedule=heft_res)
+        cso_sched, cso_score = cso_optimize(dag, config)
         cso_sim = simulate(cso_sched, dag, config)
         results["cso"] = {"schedule": cso_sched, "sim": cso_sim, "fitness": cso_score}
         print(f"[MAIN] CSO makespan={cso_sim['actual_makespan']}, energy={cso_sim['total_energy']}, storage={cso_sim['total_storage']}")
